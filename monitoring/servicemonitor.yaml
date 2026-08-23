@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: digital-banking
+  labels:
+    release: kube-prometheus-stack
+spec:
+  selector:
+    matchLabels:
+      app: digital-banking
+  endpoints:
+    - port: http
+      path: /actuator/prometheus
+      interval: 15s

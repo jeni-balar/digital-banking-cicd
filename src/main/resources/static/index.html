@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaBank - Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M5 18h38L24 7 5 18Z"></path>
+            <path d="M9 21h30M12 21v17M21 21v17M30 21v17M39 21v17M7 41h34"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">NovaBank</div>
+          <div class="brand-sub">Digital Banking</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-link active" href="#dashboard">
+          <span class="nav-icon">⌂</span><span>Dashboard</span>
+        </a>
+        <a class="nav-link" href="#accounts">
+          <span class="nav-icon">▣</span><span>Accounts</span>
+        </a>
+        <a class="nav-link" href="#transfer">
+          <span class="nav-icon">⇄</span><span>Transfer Money</span>
+        </a>
+        <a class="nav-link" href="#transactions">
+          <span class="nav-icon">☷</span><span>Transactions</span>
+        </a>
+        <a class="nav-link" href="#health">
+          <span class="nav-icon">⌁</span><span>System Health</span>
+        </a>
+        <a class="nav-link" href="#about">
+          <span class="nav-icon">ⓘ</span><span>About</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div>© 2026 NovaBank</div>
+        <div>Secure. Fast. Reliable.</div>
+        <div>Cloud-native demo platform.</div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <button class="menu-btn" type="button" aria-label="Toggle sidebar">☰</button>
+
+        <div class="topbar-right">
+          <div class="system-pill" id="systemPill">
+            <span class="status-dot"></span>
+            <span>System Status: <strong id="topStatus">Checking...</strong></span>
+          </div>
+
+          <div class="user-profile">
+            <div class="user-avatar">JB</div>
+            <div>
+              <strong>Jeni Balar</strong>
+              <span>Digital Customer</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="page">
+        <section id="dashboard" class="welcome">
+          <div>
+            <h1>Welcome to NovaBank <span>👋</span></h1>
+            <p>Your trusted partner in digital banking</p>
+          </div>
+        </section>
+
+        <section class="summary-card">
+          <div class="total-balance">
+            <div class="summary-label">Total Balance <span class="eye">◉</span></div>
+            <div class="big-balance" id="totalBalance">₹0.00</div>
+            <div class="summary-sub" id="accountSummary">Across 0 Account(s)</div>
+          </div>
+
+          <div class="summary-stat">
+            <div class="stat-box green">▣</div>
+            <div><strong id="accountCount">0</strong><span>Total Accounts</span></div>
+          </div>
+
+          <div class="summary-stat">
+            <div class="stat-box blue">⇄</div>
+            <div><strong id="transactionCount">0</strong><span>Total Transactions</span></div>
+          </div>
+
+          <div class="summary-stat">
+            <div class="stat-box purple">↗</div>
+            <div><strong id="summaryBalance">₹0</strong><span>Total Balance</span></div>
+          </div>
+        </section>
+
+        <section id="accounts" class="three-column">
+          <div class="panel">
+            <div class="panel-title"><span class="title-icon">▣</span><h2>My Accounts</h2></div>
+            <div id="accountsList" class="accounts-list">
+              <div class="loading">Loading accounts...</div>
+            </div>
+          </div>
+
+          <div id="transfer" class="panel transfer-panel">
+            <div class="panel-title"><span class="title-icon">➤</span><h2>Transfer Money</h2></div>
+            <form id="transferForm">
+              <label>From Account
+                <select id="fromAccount" required></select>
+              </label>
+              <label>To Account
+                <select id="toAccount" required></select>
+              </label>
+              <label>Amount (₹)
+                <input id="amount" type="number" min="1" step="0.01" placeholder="Enter amount" required>
+              </label>
+              <button class="transfer-btn" type="submit">➤ &nbsp; Transfer Now</button>
+              <div id="transferMessage" class="message" aria-live="polite"></div>
+            </form>
+          </div>
+
+          <div id="transactions" class="panel transactions-panel">
+            <div class="panel-title transaction-heading">
+              <div class="title-group"><span class="title-icon">☷</span><h2>Recent Transactions</h2></div>
+              <a href="#transactions" id="viewAll">View All</a>
+            </div>
+            <div id="transactionsList" class="transactions-list">
+              <div class="loading">Loading transactions...</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="health" class="health-panel panel">
+          <div class="panel-title"><span class="title-icon shield">♢</span><h2>System &amp; API Health</h2></div>
+          <div class="health-grid">
+            <div class="health-card">
+              <div><span>Application Status</span><strong id="appHealth">UP</strong><small>All systems operational</small></div>
+              <div class="health-check">✓</div>
+            </div>
+            <div class="health-card">
+              <div><span>API Health</span><strong id="apiHealth">UP</strong><small>All endpoints responding</small></div>
+              <div class="health-check">✓</div>
+            </div>
+            <div class="health-card">
+              <div><span>Kubernetes Ready</span><strong id="k8sHealth">UP</strong><small>Application workload healthy</small></div>
+              <div class="health-check">✓</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" class="about">
+          <div>
+            <strong>NovaBank Cloud-Native Platform</strong>
+            <span>Spring Boot • Docker • Kubernetes • AWS • Jenkins • Prometheus • Grafana</span>
+          </div>
+          <span class="demo-badge">DEVOPS DEMO</span>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
