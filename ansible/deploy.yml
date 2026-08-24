@@ -2,20 +2,32 @@
 - name: Deploy digital banking application to EKS
   hosts: jenkins
   gather_facts: false
+
   vars:
     aws_region: "{{ lookup('env', 'AWS_REGION') | default('ap-south-1', true) }}"
-    image_tag: "{{ image_tag | default('latest') }}"
     ecr_repo: "{{ lookup('env', 'ECR_REPO') | default('digital-banking', true) }}"
     aws_account_id: "{{ lookup('pipe', 'aws sts get-caller-identity --query Account --output text') | trim }}"
     image_uri: "{{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/{{ ecr_repo }}:{{ image_tag }}"
     cluster_name: "{{ lookup('env', 'EKS_CLUSTER') | default('digital-banking-eks', true) }}"
+
     namespace_map:
       dev: banking-dev
       staging: banking-staging
       prod: banking-prod
+
     namespace: "{{ namespace_map[env_name] }}"
 
   tasks:
+
+    - name: Validate deployment environment
+      ansible.builtin.assert:
+        that:
+          - env_name is defined
+          - env_name in namespace_map
+          - image_tag is defined
+          - image_tag | length > 0
+        fail_msg: "env_name and image_tag must be provided by Jenkins."
+
     - name: Update kubeconfig
       ansible.builtin.command:
         cmd: "aws eks update-kubeconfig --region {{ aws_region }} --name {{ cluster_name }}"
@@ -25,7 +37,9 @@
       ansible.builtin.command:
         cmd: "kubectl create namespace {{ namespace }}"
       register: ns_result
-      failed_when: ns_result.rc != 0 and 'AlreadyExists' not in ns_result.stderr
+      failed_when:
+        - ns_result.rc != 0
+        - "'AlreadyExists' not in ns_result.stderr"
       changed_when: "'created' in ns_result.stdout"
 
     - name: Apply deployment manifest
