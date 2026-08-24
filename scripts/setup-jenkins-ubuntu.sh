@@ -97,4 +97,5 @@ ansible --version
 echo "========================================"
 echo "IMPORTANT:"
 echo "Log out and log back in after Docker group changes."
+echo "Then verify Jenkins can run Docker commands."
 echo "========================================"
