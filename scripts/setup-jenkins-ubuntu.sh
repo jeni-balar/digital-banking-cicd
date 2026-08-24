@@ -14,9 +14,13 @@ sudo apt-get install -y \
     docker.io \
     ansible \
     maven \
-    awscli \
     fontconfig \
     openjdk-21-jre
+
+# Install AWS CLI v2
+curl -fsSL https://awscli.amazonaws.com/v2/install.sh | sudo bash -s -- --system
+
+aws --version
 
 # Start and enable Docker
 sudo systemctl enable --now docker
