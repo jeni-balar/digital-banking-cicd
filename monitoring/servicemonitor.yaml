@@ -5,9 +5,16 @@ metadata:
   labels:
     release: kube-prometheus-stack
 spec:
+  namespaceSelector:
+    matchNames:
+      - banking-dev
+      - banking-staging
+      - banking-prod
+
   selector:
     matchLabels:
       app: digital-banking
+
   endpoints:
     - port: http
       path: /actuator/prometheus
