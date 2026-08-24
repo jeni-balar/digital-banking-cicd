@@ -122,9 +122,9 @@ pipeline {
                             2>/dev/null || true)
 
                         if [ -n "$URL" ]; then
-                            echo "Dev URL: http://${URL}/actuator/health"
+                            echo "Dev URL: http://${URL}/api/health"
 
-                            if curl -fsS "http://${URL}/actuator/health"; then
+                            if curl -fsS "http://${URL}/api/health"; then
                                 echo "Dev smoke test passed."
                                 exit 0
                             fi
@@ -165,9 +165,9 @@ pipeline {
                             2>/dev/null || true)
 
                         if [ -n "$URL" ]; then
-                            echo "Staging URL: http://${URL}/actuator/health"
+                            echo "Staging URL: http://${URL}/api/health"
 
-                            if curl -fsS "http://${URL}/actuator/health"; then
+                            if curl -fsS "http://${URL}/api/health"; then
                                 echo "Staging smoke test passed."
                                 exit 0
                             fi
@@ -217,9 +217,9 @@ pipeline {
                             2>/dev/null || true)
 
                         if [ -n "$URL" ]; then
-                            echo "Production URL: http://${URL}/actuator/health"
+                            echo "Production URL: http://${URL}/api/health"
 
-                            if curl -fsS "http://${URL}/actuator/health"; then
+                            if curl -fsS "http://${URL}/api/health"; then
                                 echo "Production smoke test passed."
                                 exit 0
                             fi
