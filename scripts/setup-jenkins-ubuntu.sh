@@ -41,6 +41,16 @@ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.
 sudo apt-get update
 sudo apt-get install -y kubectl
 
+# Install Helm 3
+curl -fsSL -o /tmp/get_helm.sh \
+    https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+
+chmod 700 /tmp/get_helm.sh
+
+sudo /tmp/get_helm.sh
+
+rm -f /tmp/get_helm.sh
+
 # Install Jenkins
 sudo mkdir -p /etc/apt/keyrings
 
