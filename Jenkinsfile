@@ -43,7 +43,7 @@ pipeline {
 
         stage('TestNG HTML Report') {
             steps {
-                sh 'mvn surefire-report:report'
+                sh 'mvn surefire-report:report-only'
             }
 
             post {
