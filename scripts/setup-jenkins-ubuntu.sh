@@ -52,8 +52,9 @@ rm -f /tmp/get_helm.sh
 # Install Jenkins
 sudo mkdir -p /usr/share/keyrings
 
-sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
-    https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key
+curl -fsSL \
+    https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key \
+    | sudo tee /usr/share/keyrings/jenkins-keyring.asc >/dev/null
 
 sudo chmod 644 /usr/share/keyrings/jenkins-keyring.asc
 
