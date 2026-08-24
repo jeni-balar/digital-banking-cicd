@@ -90,6 +90,9 @@ kubectl version --client
 echo "Ansible:"
 ansible --version
 
+echo "Helm:"
+helm version
+
 echo "========================================"
 echo "IMPORTANT:"
 echo "Log out and log back in after Docker group changes."
