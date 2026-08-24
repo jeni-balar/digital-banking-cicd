@@ -21,10 +21,6 @@ sudo apt-get install -y \
 # Start and enable Docker
 sudo systemctl enable --now docker
 
-# Allow Jenkins and current user to use Docker
-sudo usermod -aG docker jenkins
-sudo usermod -aG docker "$USER"
-
 # Install kubectl
 sudo mkdir -p -m 755 /etc/apt/keyrings
 
@@ -46,9 +42,7 @@ curl -fsSL -o /tmp/get_helm.sh \
     https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 
 chmod 700 /tmp/get_helm.sh
-
 sudo /tmp/get_helm.sh
-
 rm -f /tmp/get_helm.sh
 
 # Install Jenkins
@@ -64,8 +58,15 @@ echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc] https://pkg.jenkins.
 sudo apt-get update
 sudo apt-get install -y jenkins
 
+# Allow Jenkins and current user to use Docker
+sudo usermod -aG docker jenkins
+sudo usermod -aG docker "$USER"
+
 # Enable and start Jenkins
 sudo systemctl enable --now jenkins
+
+# Restart Jenkins so it receives the Docker group membership
+sudo systemctl restart jenkins
 
 # Display installed versions
 echo "========================================"
@@ -87,14 +88,13 @@ aws --version
 echo "kubectl:"
 kubectl version --client
 
-echo "Ansible:"
-ansible --version
-
 echo "Helm:"
 helm version
+
+echo "Ansible:"
+ansible --version
 
 echo "========================================"
 echo "IMPORTANT:"
 echo "Log out and log back in after Docker group changes."
-echo "Then verify Jenkins can run Docker commands."
 echo "========================================"
