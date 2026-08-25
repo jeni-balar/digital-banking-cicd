@@ -5,18 +5,13 @@ metadata:
   namespace: monitoring
   labels:
     release: kube-prometheus-stack
-
 spec:
   namespaceSelector:
     matchNames:
-      - banking-dev
-      - banking-staging
-      - banking-prod
-
+      - default
   selector:
     matchLabels:
       app: digital-banking
-
   endpoints:
     - port: http
       path: /actuator/prometheus
