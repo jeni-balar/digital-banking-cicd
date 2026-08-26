@@ -1,2 +1,0 @@
-For portability, generate the Maven wrapper with: mvn -N wrapper:wrapper
-Then commit mvnw, mvnw.cmd and .mvn/wrapper/* to your GitHub repository.
