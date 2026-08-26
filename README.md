@@ -1,128 +1,100 @@
-# End-to-End CI/CD Deployment of Cloud-Native Digital Banking & Transaction Processing Platform
+# End-to-End CI/CD Deployment of Cloud-Native Digital Banking Platform
 
 An end-to-end DevOps project that automates the build, testing, containerization, deployment, and monitoring of a Spring Boot Digital Banking application on AWS.
 
 ## 🏗️ Architecture
 
-![Digital Banking CI/CD Architecture](architecture/architecture.png)
+![Digital Banking CI/CD Architecture](./architecture/architecture.png)
 
-**Digital Banking CI/CD Architecture on AWS**
+**GitHub → Jenkins → Maven/TestNG → Docker → Amazon ECR → Ansible → Amazon EKS → LoadBalancer**
 
----
-
-## 📌 Project Overview
-
-The project implements a complete CI/CD workflow using **GitHub and Jenkins** for automated application delivery.
-
-The application is built and tested using **Maven and TestNG**, containerized using **Docker**, stored in **Amazon ECR**, and deployed to **Amazon EKS** using **Ansible and Kubernetes**.
-
-The application is promoted through **Development → Staging → Production**, with a manual approval gate before Production deployment.
-
-**Prometheus and Grafana** are used for application and Kubernetes monitoring.
-
----
+The application is deployed across separate **Development, Staging, and Production** Kubernetes namespaces with a manual approval before Production deployment.
 
 ## 🔄 CI/CD Pipeline
 
-```text
-GitHub
-   ↓
-Jenkins
-   ↓
-Build & Test
-   ↓
-TestNG Report
-   ↓
-Docker Build
-   ↓
-Amazon ECR
-   ↓
-Ansible
-   ↓
-Amazon EKS
-   ↓
-Dev → Staging → Production
-              ↓
-       Manual Approval
-Key Pipeline Stages
-GitHub source checkout
-Maven build and TestNG testing
-Test report generation
-Docker image build
-Amazon ECR authentication and image push
-Dev deployment and smoke test
-Staging deployment and smoke test
-Production approval
-Production deployment and smoke test
-🛠️ Technologies
-Category	Technologies
-Cloud	AWS
-Source Control	GitHub
-CI/CD	Jenkins
-Application	Java, Spring Boot
-Build & Testing	Maven, TestNG
-Containerization	Docker
-Registry	Amazon ECR
-Automation	Ansible
-Orchestration	Kubernetes, Amazon EKS
-Monitoring	Prometheus, Grafana
-Networking	Amazon VPC, LoadBalancer
-☸️ Kubernetes Deployment
+- GitHub source checkout
+- Maven build and TestNG testing
+- Test report generation
+- Docker image build
+- Amazon ECR authentication and image push
+- Dev deployment and smoke test
+- Staging deployment and smoke test
+- Production approval
+- Production deployment and smoke test
 
-The application is deployed on Amazon EKS using Kubernetes with separate namespaces for environment isolation:
+## 🛠️ Technologies
 
-banking-dev
-banking-staging
-banking-prod
+| Category | Technologies |
+|---|---|
+| Cloud | AWS |
+| Source Control | GitHub |
+| CI/CD | Jenkins |
+| Application | Java, Spring Boot |
+| Build & Testing | Maven, TestNG |
+| Containerization | Docker |
+| Registry | Amazon ECR |
+| Automation | Ansible |
+| Orchestration | Kubernetes, Amazon EKS |
+| Monitoring | Prometheus, Grafana |
+| Networking | Amazon VPC, LoadBalancer |
 
-The application is exposed externally through a Kubernetes LoadBalancer Service.
+## ☸️ Kubernetes
 
-📊 Monitoring
+The application runs on **Amazon EKS** using separate namespaces:
 
-Spring Boot exposes application metrics through:
+- `banking-dev`
+- `banking-staging`
+- `banking-prod`
 
-/actuator/prometheus
+The application is exposed externally through a Kubernetes **LoadBalancer Service**.
+
+## 📊 Monitoring
+
+Spring Boot exposes metrics through:
+
+`/actuator/prometheus`
 
 Prometheus collects the metrics and Grafana provides the monitoring dashboard.
 
-Grafana Panels
-CPU Usage
-Memory Usage
-Request Rate
-JVM Heap Memory
-Kubernetes Pod Health
-HTTP Error Rate
-🔍 Key Verification
+### Grafana Panels
 
-The deployment was verified through:
+- CPU Usage
+- Memory Usage
+- Request Rate
+- JVM Heap Memory
+- Kubernetes Pod Health
+- HTTP Error Rate
 
-Successful Jenkins pipeline and Stage View
-TestNG test results
-Docker image successfully pushed to Amazon ECR
-EKS cluster and worker nodes in Ready state
-Kubernetes Pods in Running/Ready state
-Successful deployment rollout
-LoadBalancer external endpoint
-Browser-based application access
-Successful banking transaction
-Spring Boot health check
-Prometheus target verification
-Grafana monitoring dashboard
-🧩 Key Troubleshooting
-Kubernetes Manifest Path: Resolved an Ansible deployment issue by using playbook_dir to correctly locate the Kubernetes manifest regardless of Jenkins' current working directory.
-ECR Authentication: Configured Docker authentication with the private Amazon ECR repository before pushing the application image.
-Pod Readiness: Verified and monitored Kubernetes Pods until the application replicas reached the expected Running/Ready state.
-📄 Project Documentation
+## 🔍 Verification
 
-For the complete step-by-step implementation with AWS console screenshots, configuration details, testing, and troubleshooting:
+- Successful Jenkins pipeline and Stage View
+- TestNG results generated
+- Docker image pushed to Amazon ECR
+- EKS nodes in Ready state
+- Kubernetes Pods in Running/Ready state
+- Successful deployment rollout
+- LoadBalancer endpoint verified
+- Application accessed through browser
+- Banking transaction verified
+- Spring Boot health check verified
+- Prometheus targets verified
+- Grafana dashboard verified
 
-📄 View Project Implementation Report
+## 🧩 Troubleshooting
 
-👩‍💻 Author
+- Resolved Kubernetes manifest path issues in Ansible using `playbook_dir`.
+- Configured Docker authentication for the private Amazon ECR repository.
+- Verified Pod readiness and successful Kubernetes rollout.
 
-Jeni Balar
+## 📄 Project Documentation
 
-Digital Banking CI/CD Project on AWS
+For the complete step-by-step implementation with AWS screenshots, configuration, testing, and troubleshooting:
 
+**[📄 View Project Implementation Report](./Report/Project-2-Digital_banking-cicd-project-report.pdf)**
 
-**Important:** I used `.pdf` in the report link. If the actual file you uploaded has a different extension or exact capitalization, the link must match the GitHub filename **exactly**.
+## 👩‍💻 Author
+
+**Jeni Balar**
+
+Cloud & DevOps Project
+
